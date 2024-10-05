@@ -6,7 +6,9 @@ document.querySelectorAll('.link').forEach(function (link) {
         overlay.style.opacity = '1';
 
         setTimeout(() => {
-            window.open(link.href, '_blank');
+            const url = link.href;
+            const redirectUrl = `redirect.html?url=${encodeURIComponent(url)}`;
+            window.open(redirectUrl, '_blank');
             overlay.style.opacity = '0';
         }, 300);
     });

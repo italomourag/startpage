@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        body {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.5s ease;
+            overflow: hidden;
+        }
+
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #269cb6;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <script>
+        const targetUrl = new URL(window.location.href).searchParams.get('url');
+        
+        function redirectWithFade() {
+            document.body.style.backgroundColor = 'transparent';
+            setTimeout(() => {
+                if (targetUrl) {
+                    window.location.href = targetUrl;
+                }
+            }, 500);
+        }
+
+        if (targetUrl) {
+            setTimeout(redirectWithFade, 500);
+        }
+    </script>
+</body>
+</html>
