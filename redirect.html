@@ -18,7 +18,7 @@
             --fade-color: #0d0d0d;
         }
         body {
-            background-color: var(--fade-color);
+            background-color: var(--bg);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,8 +34,6 @@
             width: 20px;
             height: 20px;
             animation: spin 1s linear infinite;
-            opacity: 0;
-            transition: opacity 0.4s ease;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -44,30 +42,18 @@
     </style>
 </head>
 <body>
-    <div class="loader" id="loader"></div>
+    <div class="loader"></div>
     <script>
         const saved = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', saved);
 
         const isDark = saved === 'dark';
         const fadeColor = isDark ? '#0d0d0d' : '#ffffff';
-        const bgColor = isDark ? '#263238' : '#e7e8eb';
-
-        const body = document.body;
-        const loader = document.getElementById('loader');
         const targetUrl = new URL(window.location.href).searchParams.get('url');
 
-        // fade in: cor sólida → fundo normal + spinner aparece
-        body.style.transition = 'background-color 0.5s ease';
-        setTimeout(() => {
-            body.style.backgroundColor = bgColor;
-            loader.style.opacity = '1';
-        }, 50);
-
-        // fade out: fundo normal → cor sólida → redireciona
         function redirectWithFade() {
-            loader.style.opacity = '0';
-            body.style.backgroundColor = fadeColor;
+            document.body.style.transition = 'background-color 0.5s ease';
+            document.body.style.backgroundColor = fadeColor;
             setTimeout(() => {
                 if (targetUrl) {
                     window.location.href = targetUrl;
@@ -76,7 +62,7 @@
         }
 
         if (targetUrl) {
-            setTimeout(redirectWithFade, 800);
+            setTimeout(redirectWithFade, 500);
         }
     </script>
 </body>
