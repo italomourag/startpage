@@ -16,15 +16,16 @@ const toggle = document.getElementById('themeToggle');
 
 function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
     toggle.innerHTML = theme === 'dark' ? '&#xf185;' : '&#xf186;';
 }
 
 const params = new URLSearchParams(window.location.search);
 const saved = params.get('theme') || localStorage.getItem('theme') || 'light';
+applyTheme(saved);
 
 toggle.addEventListener('click', () => {
     const current = document.documentElement.getAttribute('data-theme');
     const next = current === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('theme', next);
     applyTheme(next);
 });
