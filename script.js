@@ -19,8 +19,8 @@ function applyTheme(theme) {
     toggle.innerHTML = theme === 'dark' ? '&#xf185;' : '&#xf186;';
 }
 
-const saved = localStorage.getItem('theme') || 'light';
-applyTheme(saved);
+const params = new URLSearchParams(window.location.search);
+const saved = params.get('theme') || localStorage.getItem('theme') || 'light';
 
 toggle.addEventListener('click', () => {
     const current = document.documentElement.getAttribute('data-theme');
